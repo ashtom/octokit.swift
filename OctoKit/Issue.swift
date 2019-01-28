@@ -13,7 +13,7 @@ open class Issue: Codable {
     open private(set) var id: Int = -1
     open var url: URL?
     open var repositoryURL: URL?
-    open var labelsURL: URL?
+    open var labelsURL: String?
     open var commentsURL: URL?
     open var eventsURL: URL?
     open var htmlURL: URL?
