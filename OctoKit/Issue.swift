@@ -142,7 +142,12 @@ public extension Octokit {
     @discardableResult
     public func postIssue(_ session: RequestKitURLSession = URLSession.shared, owner: String, repository: String, title: String, body: String? = nil, assignee: String? = nil, completion: @escaping (_ response: Response<Issue>) -> Void) -> URLSessionDataTaskProtocol? {
         let router = IssueRouter.postIssue(configuration, owner, repository, title, body, assignee)
-        return router.post(session, expectedResultType: Issue.self) { issue, error in
+        let decoder:JSONDecoder = JSONDecoder()
+        if #available(iOS 10.0, *) {
+            // This solves a decoding issue for dates, e.g. created_at
+            decoder.dateDecodingStrategy = .iso8601
+        }
+        return router.post(session, decoder:decoder, expectedResultType: Issue.self) { issue, error in
             if let error = error {
                 completion(Response.failure(error))
             } else {
