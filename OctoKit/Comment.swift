@@ -6,10 +6,20 @@ import RequestKit
 open class Comment: Codable {
     open private(set) var id: Int = -1
     open var url: URL?
+    open var htmlURL: URL?
+    open var body: String?
+    open var user: User?
+    open var createdAt: Date?
+    open var updatedAt: Date?
 
     enum CodingKeys: String, CodingKey {
         case id
         case url
+        case htmlURL = "html_url"
+        case body
+        case user
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
     }
 }
 
