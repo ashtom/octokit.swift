@@ -96,6 +96,7 @@
 		23F6434F1C7AEF70000427B3 /* user_repos.json in Resources */ = {isa = PBXBuildFile; fileRef = 234F4BDC1BDDE44600A58EF7 /* user_repos.json */; };
 		23F643501C7AEF72000427B3 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = E7EE59DF1BE139FD0012E3D2 /* users.json */; };
 		23F643511C7AEF73000427B3 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = E7EE59DF1BE139FD0012E3D2 /* users.json */; };
+		4D9C657E220663EC00E4F4C3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9C657D220663EC00E4F4C3 /* Comment.swift */; };
 		BF8C711C2C6B42F9F323FCFE /* pull_requests.json in Resources */ = {isa = PBXBuildFile; fileRef = BF8C79B71035B425F7748392 /* pull_requests.json */; };
 		BF8C716EB8D5CA2CBBA745CB /* pull_request.json in Resources */ = {isa = PBXBuildFile; fileRef = BF8C77314F563A710F11E2F6 /* pull_request.json */; };
 		BF8C719220F02AC04EF3D137 /* PullRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C76EB002802C14A08F63E /* PullRequestTests.swift */; };
@@ -238,6 +239,7 @@
 		23CAF29A1C7AB619005011C4 /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F6433C1C7AEEB6000427B3 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/tvOS/Nocilla.framework; sourceTree = "<group>"; };
 		23F643421C7AEF2F000427B3 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/Mac/Nocilla.framework; sourceTree = "<group>"; };
+		4D9C657D220663EC00E4F4C3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		BF8C72B985869B84F46B4E9D /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		BF8C73E0EF3CEEBDEA68DD5E /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		BF8C76EB002802C14A08F63E /* PullRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequestTests.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			children = (
 				239BE7CD1B8C47A100D2CE22 /* OctoKit.h */,
 				23B267851BDDD756003887E3 /* Configuration.swift */,
+				4D9C657D220663EC00E4F4C3 /* Comment.swift */,
 				E7EE59DB1BE119110012E3D2 /* Follow.swift */,
 				E7EDEA691C871CEB006BAAF2 /* Issue.swift */,
 				DAEFC58F1C83D85100CF3785 /* Label.swift */,
@@ -772,6 +775,7 @@
 				237F91E41E5AEC82005FAA6B /* URL+URLParameters.swift in Sources */,
 				DAEFC5951C83EF0D00CF3785 /* Milestone.swift in Sources */,
 				23B2678B1BDDD756003887E3 /* Octokit.swift in Sources */,
+				4D9C657E220663EC00E4F4C3 /* Comment.swift in Sources */,
 				E7EDEA6A1C871CEB006BAAF2 /* Issue.swift in Sources */,
 				DAEFC5901C83D85100CF3785 /* Label.swift in Sources */,
 				BF8C7BE0F4071324EBDCA204 /* PullRequest.swift in Sources */,
