@@ -140,8 +140,8 @@ public extension Octokit {
      - parameter completion: Callback for the issue that is created.
      */
     @discardableResult
-    public func postIssue(_ session: RequestKitURLSession = URLSession.shared, owner: String, repository: String, title: String, body: String? = nil, assignee: String? = nil, completion: @escaping (_ response: Response<Issue>) -> Void) -> URLSessionDataTaskProtocol? {
-        let router = IssueRouter.postIssue(configuration, owner, repository, title, body, assignee)
+    public func postIssue(_ session: RequestKitURLSession = URLSession.shared, owner: String, repository: String, title: String, body: String? = nil, assignee: String? = nil, labels: [String]? = nil, completion: @escaping (_ response: Response<Issue>) -> Void) -> URLSessionDataTaskProtocol? {
+        let router = IssueRouter.postIssue(configuration, owner, repository, title, body, assignee, labels)
         let decoder:JSONDecoder = JSONDecoder()
         if #available(iOS 10.0, *) {
             // This solves the following decoding problem:
@@ -172,8 +172,8 @@ public extension Octokit {
      - parameter completion: Callback for the issue that is created.
      */
     @discardableResult
-    public func patchIssue(_ session: RequestKitURLSession = URLSession.shared, owner: String, repository: String, number: Int, title: String? = nil, body: String? = nil, assignee: String? = nil, state: Openness? = nil, completion: @escaping (_ response: Response<Issue>) -> Void) -> URLSessionDataTaskProtocol? {
-        let router = IssueRouter.patchIssue(configuration, owner, repository, number, title, body, assignee, state)
+    public func patchIssue(_ session: RequestKitURLSession = URLSession.shared, owner: String, repository: String, number: Int, title: String? = nil, body: String? = nil, assignee: String? = nil, state: Openness? = nil, labels: [String]?, completion: @escaping (_ response: Response<Issue>) -> Void) -> URLSessionDataTaskProtocol? {
+        let router = IssueRouter.patchIssue(configuration, owner, repository, number, title, body, assignee, state, labels)
         let decoder:JSONDecoder = JSONDecoder()
         if #available(iOS 10.0, *) {
             // This solves the following decoding problem:
@@ -198,8 +198,8 @@ enum IssueRouter: JSONPostRouter {
     case readAuthenticatedIssues(Configuration, String, String, Openness)
     case readIssue(Configuration, String, String, Int)
     case readIssues(Configuration, String, String, String, String, Openness)
-    case postIssue(Configuration, String, String, String, String?, String?)
-    case patchIssue(Configuration, String, String, Int, String?, String?, String?, Openness?)
+    case postIssue(Configuration, String, String, String, String?, String?, [String]?)
+    case patchIssue(Configuration, String, String, Int, String?, String?, String?, Openness?, [String]?)
     
     var method: HTTPMethod {
         switch self {
@@ -224,8 +224,8 @@ enum IssueRouter: JSONPostRouter {
         case .readAuthenticatedIssues(let config, _, _, _): return config
         case .readIssue(let config, _, _, _): return config
         case .readIssues(let config, _, _, _, _, _): return config
-        case .postIssue(let config, _, _, _, _, _): return config
-        case .patchIssue(let config, _, _, _, _, _, _, _): return config
+        case .postIssue(let config, _, _, _, _, _, _): return config
+        case .patchIssue(let config, _, _, _, _, _, _, _, _): return config
         }
     }
     
@@ -237,17 +237,21 @@ enum IssueRouter: JSONPostRouter {
             return [:]
         case .readIssues(_, _, _, let page, let perPage, let state):
             return ["per_page": perPage, "page": page, "state": state.rawValue]
-        case .postIssue(_, _, _, let title, let body, let assignee):
-            var params = ["title": title]
+        case .postIssue(_, _, _, let title, let body, let assignee, let labels):
+            var params: [String: Any] = [:]
+            params["title"] = title
             if let body = body {
                 params["body"] = body
             }
             if let assignee = assignee {
                 params["assignee"] = assignee
             }
+            if let labels = labels, labels.count > 0 {
+                params["labels"] = labels
+            }
             return params
-        case .patchIssue(_, _, _, _, let title, let body, let assignee, let state):
-            var params: [String: String] = [:]
+        case .patchIssue(_, _, _, _, let title, let body, let assignee, let state, let labels):
+            var params: [String: Any] = [:]
             if let title = title {
                 params["title"] = title
             }
@@ -259,6 +263,9 @@ enum IssueRouter: JSONPostRouter {
             }
             if let state = state {
                 params["state"] = state.rawValue
+            }
+            if let labels = labels, labels.count > 0 {
+                params["labels"] = labels
             }
             return params
         }
@@ -272,9 +279,9 @@ enum IssueRouter: JSONPostRouter {
             return "repos/\(owner)/\(repository)/issues/\(number)"
         case .readIssues(_, let owner, let repository, _, _, _):
             return "repos/\(owner)/\(repository)/issues"
-        case .postIssue(_, let owner, let repository, _, _, _):
+        case .postIssue(_, let owner, let repository, _, _, _, _):
             return "repos/\(owner)/\(repository)/issues"
-        case .patchIssue(_, let owner, let repository, let number, _, _, _, _):
+        case .patchIssue(_, let owner, let repository, let number, _, _, _, _, _):
             return "repos/\(owner)/\(repository)/issues/\(number)"
         }
     }
