@@ -10,6 +10,7 @@ public struct TokenConfiguration: Configuration {
     public var apiEndpoint: String
     public var accessToken: String?
     public let errorDomain = OctoKitErrorDomain
+    public let authorizationHeader: String? = "token"
 
     public init(_ token: String? = nil, url: String = githubBaseURL) {
         apiEndpoint = url
